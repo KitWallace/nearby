@@ -1,0 +1,54 @@
+body {
+    background-color:  #D8D8D8;
+    padding-right: 20px;    padding-left: 20px; 
+    font-family: sans-serif; font-size:14pt;
+    font-size: 14pt; color: #5E5853;
+}
+
+#map_canvas {position:relative; left:0; height:500px; }
+
+a {
+    text-decoration:none;
+    color: #59C;
+ }
+
+
+a.external {
+    background-image: url('assets/Icon_External_Link.png');
+    padding-right: 12px;
+    text-decoration: none;
+    background-position: right;
+    background-repeat:no-repeat;
+}
+
+th  {
+    font-size:12pt;
+    vertical-align:top;
+    text-align:right;
+}
+.f16{
+
+    font-size:16pt;
+}
+.f14 {
+      font-size:14pt;
+    }
+.button  {
+    background-color: #59A;  /* blue*/
+    color: white;
+    padding: 3px 10px;
+    border: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius:3px;
+    border: solid 1px #20538D;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
