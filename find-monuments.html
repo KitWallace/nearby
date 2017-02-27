@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <link rel="stylesheet" type="text/css" href="assets/mobile.css"/>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"/>
+        <script type="text/javascript">var editing = false;</script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-sB9Nwqkh-imfUd1-w3_lz4KFhL-_VqU"/>
+        <script src="js/monument-config.js" type="text/javascript" charset="utf-8"/>
+        <script src="js/mobile.js" type="text/javascript" charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="assets/Artwork.png" rel="icon" sizes="128x128"/>
+        <link rel="shortcut icon" type="image/png" href="assets/Artwork.png"/>
+    </head>
+    <body>
+        <h1>Monuments in Bristol</h1>
+        <div>
+            <span>Nearby <input type="text" name="view_range" id="view_range" value="500" size="4"/>m </span>
+            <button id="refresh" class="button" onclick="get_position()">Refresh Position</button>
+            <button id="watching" class="button" onclick="watch_change()">Watch OFF</button>
+            <br/>
+            <span id="latlong"/>
+            <span id="status"/>
+            <div id="direction"/>
+            <hr/>
+            <div id="nearest"/>
+            <div id="map_canvas" class="full_canvas"/>
+        </div>
+    </body>
+</html>
