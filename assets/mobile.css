@@ -2,7 +2,7 @@ body {
     background-color:  #D8D8D8;
     padding-right: 20px;    padding-left: 20px; 
     font-family: sans-serif; font-size:14pt;
-    font-size: 14pt; color: #5E5853;
+    font-size: 13pt; color: #5E5853;
 }
 
 #map_canvas {position:relative; left:0; height:500px; }
@@ -12,6 +12,11 @@ a {
     color: #59C;
  }
 
+h1 {font-size: 16pt;}
+h2 {font-size: 14pt;}
+h3 {font-size: 12pt;}
+div {font-size: 12pt;}
+div.legend {font-size: 14pt;}
 
 a.external {
     background-image: url('assets/Icon_External_Link.png');
@@ -21,18 +26,7 @@ a.external {
     background-repeat:no-repeat;
 }
 
-th  {
-    font-size:12pt;
-    vertical-align:top;
-    text-align:right;
-}
-.f16{
 
-    font-size:16pt;
-}
-.f14 {
-      font-size:14pt;
-    }
 .button  {
     background-color: #59A;  /* blue*/
     color: white;
