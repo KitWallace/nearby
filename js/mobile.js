@@ -44,9 +44,9 @@ function distance_direction(flat,flong,slat,slong) {
       dlong = (flong - slong) * 60 * longCorr;
       deg = Math.round(degrees(Math.atan2(-dlat,-dlong)));
       if (deg < 0 ) deg +=  360;
-      return [Math.sqrt((dlat * dlat) + (dlong * dlong)) * 1852 ,
-              ( 450 - deg ) % 360
-              ]
+      return {distance: Math.round(Math.sqrt((dlat * dlat) + (dlong * dlong)) * 1852 ),
+              direction: ( 450 - deg ) % 360
+             }
 };
 
 function compass_point(dir) {
@@ -55,12 +55,11 @@ function compass_point(dir) {
 }
 
 function sort_0(a,b) {
-   return ((a[0][0] < b[0][0]) ? -1 : ((a[0][0] > b[0][0])? 1 : 0 ));
+   return ((a[0].distance < b[0].distance) ? -1 : ((a[0].distance > b[0].distance)? 1 : 0 ));
 }
 
 //  map creation
 // initialize global map variables
-
 
 function initialize_map(lat , lng){
   var canvas = document.getElementById("map_canvas");
@@ -96,7 +95,7 @@ function initialize_map(lat , lng){
  *            description
  * 
  *    selection
- *         0 - [distance, direction from point]
+ *         0 - {distance, direction from point}
  *         1 - item
  */
 
@@ -161,15 +160,17 @@ function update_map_here(lat,lng) {
 
 // web page updating
 
-// update the 'nearest' div on the web page from a selection
+// update the item sections from a selection
 function update_page_nearest(selection) {
        var dist_dir = selection[0];
        var item = selection[1];
-       var dist = Math.round(dist_dir[0]);
-       var dir =  Math.round(dist_dir[1]);
+       var dist = dist_dir.distance;
+       var dir =  dist_dir.direction;
+       var compass =  compass_point(dir);
        if (debug) alert("nearest "+item.id);
-       var div = item_to_div(item,dist,dir);
-       $('#nearest').html(div);
+
+       $('#summary').html(item_to_summary(item,dist,dir,compass));
+       $('#description').html(item_to_description(item));
 }
 
 // update the latlong div on the webpage 
@@ -228,7 +229,7 @@ function nearby(lat,lng,range) {
      for (k in items.item) {
          var item = items.item[k];
          var dist_dir = distance_direction(lat,lng,item.latitude,item.longitude);
-          if (dist_dir[0] <= range) 
+          if (dist_dir.distance <= range) 
              selection.push([dist_dir,item]);
        }
      if (debug) alert (selection.length);
@@ -264,17 +265,16 @@ function set_position(position) {
     update_map_here(latitude,longitude);
     update_page_latlong(latitude,longitude);
     
-    var offset = distance_direction(load_lat,load_long,latitude,longitude)[0];
+    var offset = distance_direction(load_lat,load_long,latitude,longitude).distance;
     var out_of_range = offset > Number(load_range) * 0.9;
-//    $('#status').html('offset '+offset + ' : ' + out_of_range);
     if (debug) alert("Distance from load position "+offset);
     if ( out_of_range || items == undefined) {
         load_items();
     }
     else {
-      var d =  distance_direction(last_lat,last_long,latitude,longitude);
-      if (debug) alert("distance from last update " + d[0]);
-      if (d[0] > delta) {           
+      var d =  distance_direction(last_lat,last_long,latitude,longitude).distance;
+      if (debug) alert("distance from last update " + d);
+      if (d > delta) {           
             update_item();
       }      
     }
