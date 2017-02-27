@@ -4,8 +4,8 @@ var items_in_range_url = "xquery/monuments-in-range.xq";
 var edit_url = "xquery/edit_monument.xq";
 var here_icon = "assets/redbullseye.png";
 var nearest_icon = "assets/camera-highlight.png";
-var unseen_icon = "assets/camera.png";
-var seen_icon = "assets/greencircle.png";
+var item_icon = "assets/camera.png";
+
 
 var zoom=18;
 var load_range=3000;
