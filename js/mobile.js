@@ -14,14 +14,12 @@ var last_long= 0;
 var load_lat =0;
 var load_long =0;
 
-var moves = 0;
-var delta = 2;
+var delta = 2;  // tolerance in position change for nearest update
 
 var last_near_id = "";
 
 var watching =false;
 var watch_id ;
-
 
 // base function
 function radians(degrees) {
@@ -167,25 +165,24 @@ function update_page_nearest(selection) {
        var dist = dist_dir.distance;
        var dir =  dist_dir.direction;
        var compass =  compass_point(dir);
-       if (debug) alert("nearest "+item.id);
+       var directions =  ' Nearest is ' + dist+ "m at " + dir + '° ' + compass; 
 
-       $('#summary').html(item_to_summary(item,dist,dir,compass));
+       if (debug) alert("nearest "+item.id);
+       $('#directions').html(directions);
+       $('#summary').html(item_to_summary(item));
        $('#description').html(item_to_description(item));
 }
 
 // update the latlong div on the webpage 
 
 function update_page_latlong(latitude,longitude) {
-    var span = "<span>"+round_degrees(latitude)+","+round_degrees(longitude);
-    if (editing) 
-        span += " <a href='"+root+edit_item+"?latitude="+latitude+"&longitude="+longitude+"'> Edit "+ item_name +"</a>";
-    span += "</span>";
-    $('#latlong').html(span);
+    var position= 'You are at ' +round_degrees(latitude)+","+round_degrees(longitude);
+    $('#latlong').html(position);
 }
 
 // update the number of loaded items
 function update_page_loaded() {
-    $('#items').html(items.item.length);
+    $('#loaded').html(items.item.length+ " loaded");
 }
 
 /* 
@@ -193,6 +190,7 @@ function update_page_loaded() {
  */
  
 function load_items() {
+     var load_range = $('#load_range').val();
      var url = root+items_in_range_url+"?latitude="+latitude+"&longitude="+longitude+"&range="+load_range;
      if(debug) alert (url);
      //start ajax request
@@ -239,24 +237,22 @@ function nearby(lat,lng,range) {
 //  main page and map updater
 
 function update_item() {
-     view_range = $('#view_range').val(); 
+     var view_range = $('#view_range').val(); 
      if (debug) alert (latitude + "," + longitude + ","+view_range);
      var selection = nearby(latitude,longitude,view_range);
      if (debug) alert (selection.length);
-     if (selection.length > 0)
+     if (selection.length > 0) {
              update_page_nearest(selection[0]);
-     else $('#nearest').html("");
+             $('#nearby').html(selection.length+" nearby");
+             }
+     else $('#nearby').html("None");
      update_map_markers(selection);
      last_lat = latitude ;
      last_long = longitude;
 }
 
 function set_position(position) {
-    if (moves == 0) {
-          get_position();
-          moves ++;
-          return null;
-    }
+
     latitude = round_degrees(position.coords.latitude);
     longitude = round_degrees(position.coords.longitude);
     if (debug) alert("set position");
