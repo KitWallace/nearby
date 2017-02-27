@@ -109,7 +109,7 @@ function update_map_markers(selection) {
        var html = item_to_html(item);
        if (mark == undefined )   {    // missing 
                var position = new google.maps.LatLng(item.latitude,item.longitude);
-               var icon = unseen_icon;
+               var icon = item_icon;
                var marker = new google.maps.Marker({
                  position: position,
                  title: item.title,
@@ -139,14 +139,14 @@ function update_map_markers(selection) {
        var item = selection[0][1];
        var near_id = item.id;
        if (near_id != last_near_id) {
-          if (last_near_id != "") markers[last_near_id].setIcon(unseen_icon);
+          if (last_near_id != "") markers[last_near_id].setIcon(item_icon);
           markers[near_id].setIcon(nearest_icon);
           last_near_id =  near_id;
        }   
      }
    else {
       if (last_near_id != "") {
-          markers[last_near_id].setIcon(unseen_icon);   
+          markers[last_near_id].setIcon(item_icon);   
           last_near_id = "";
       }
    }
