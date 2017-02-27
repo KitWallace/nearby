@@ -7,7 +7,7 @@ var nearest_icon = "assets/camera-highlight.png";
 var unseen_icon = "assets/camera.png";
 var seen_icon = "assets/greencircle.png";
 
-var zoom=17;
+var zoom=18;
 var load_range=3000;
 
 function item_to_html(item) {
@@ -17,13 +17,15 @@ function item_to_html(item) {
    return html;
 };
 
-function item_to_div(item,dist,dir) {
+function item_to_summary(item,dist,dir,compass) {
    var html =  "<div>";
-   html+= '<div>'+item.id+' <em>'+item.title+'</em>'+ '</div>';
-   html+= '<div>'+' [' + dist+ "m at " + dir + '° ' + compass_point(dir)  +  ']' +'</div>';
-   html+=  item.description;
-   html += "</div>";
+   html+= '<div>'+item.id+' <b>'+item.title+'</b>'+ '</div>';
+   html+= '<div>'+' [' + dist+ "m at " + dir + '° ' + compass  +  ']' +'</div>';   html += "</div>";
    return html;
+};
+
+function item_to_description(item) {
+    return '<div><h2>'+item.title+'</h2>'+item.description + '</div>';
 };
 
 var debug = false;
